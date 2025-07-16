@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BB Agency</title>
+  <!-- Google Fonts: Quicksand + Manrope für moderne Optik -->
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,700|Manrope:400,600,800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --creme-bg: #f7f4ef;
+      --accent: #2563eb;
+      --accent-dark: #1e40af;
+      --text: #2563eb;
+      --header-bg: #fff;
+      --shadow: 0 2px 12px #2563eb10;
+      --card-bg: #fff;
+      --border-radius: 12px;
+      --transition-fast: 0.18s cubic-bezier(.4,0,.2,1);
+      --nav-height: 54px;
+      --nav-blur: 18px;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Manrope', 'Quicksand', Arial, sans-serif;
+      background: var(--creme-bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      background: var(--header-bg);
+      box-shadow: var(--shadow);
+      padding: 38px 0 14px 0;
+      text-align: center;
+      font-size: 2.15rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      font-family: 'Manrope', Arial, sans-serif;
+      cursor: pointer;
+      user-select: none;
+      transition: color var(--transition-fast);
+    }
+    header:hover {
+      color: var(--accent-dark);
+    }
+
+    /* Apple-like Navigation */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      height: var(--nav-height);
+      background: rgba(255,255,255,0.87);
+      -webkit-backdrop-filter: blur(var(--nav-blur));
+      backdrop-filter: blur(var(--nav-blur));
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      font-family: 'Manrope', Arial, sans-serif;
+      box-shadow: 0 1px 8px #2563eb09;
+    }
+    .nav-link, .nav-dropdown-btn {
+      position: relative;
+      background: none;
+      color: var(--accent-dark);
+      border: none;
+      padding: 0 20px;
+      height: var(--nav-height);
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      outline: none;
+      transition: color var(--transition-fast);
+      font-family: 'Manrope', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+    }
+    .nav-link:hover, .nav-dropdown-btn:hover,
+    .nav-link:focus, .nav-dropdown-btn:focus {
+      color: var(--accent);
+    }
+    .nav-dropdown {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .nav-dropdown-list {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 8px);
+      transform: translateX(-50%);
+      min-width: 180px;
+      background: rgba(255,255,255,0.97);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 32px #2563eb1c;
+      border: 1px solid #e5e7eb;
+      padding: 10px 0;
+      z-index: 200;
+      animation: dropdownFadeIn 0.22s;
+      font-family: 'Manrope', Arial, sans-serif;
+      overflow: hidden;
+    }
+    .nav-dropdown.open .nav-dropdown-list {
+      display: block;
+    }
+    @keyframes dropdownFadeIn {
+      from { opacity: 0; transform: translateY(12px) translateX(-50%);}
+      to { opacity: 1; transform: translateY(0) translateX(-50%);}
+    }
+    .nav-dropdown-list a {
+      display: block;
+      color: var(--accent-dark);
+      padding: 13px 28px;
+      font-size: 1.03rem;
+      text-decoration: none;
+      white-space: nowrap;
+      font-weight: 500;
+      transition: background 0.13s, color 0.13s;
+      border-left: 3px solid transparent;
+    }
+    .nav-dropdown-list a:hover,
+    .nav-dropdown-list a:focus {
+      background: #f3f8ff;
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+    }
+
+    main {
+      min-height: 60vh;
+      color: var(--text);
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 60px auto 0 auto;
+      text-align: center;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      color: var(--text);
+    }
+    .hero-image {
+      width: 100%;
+      max-width: 880px;
+      display: block;
+      margin: 0 auto 32px auto;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 50px #2563eb12;
+      object-fit: cover;
+      height: 350px;
+    }
+    .hero-title {
+      font-size: 2.45rem;
+      font-weight: 800;
+      margin: 0 0 10px 0;
+      color: var(--accent);
+      letter-spacing: 1.4px;
+      font-family: 'Manrope', Arial, sans-serif;
+      line-height: 1.13;
+    }
+    .hero-desc {
+      font-size: 1.26rem;
+      color: var(--text);
+      margin-bottom: 32px;
+      line-height: 1.7;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'Quicksand', Arial, sans-serif;
+    }
+    .hero-btn {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.13rem;
+      font-weight: 700;
+      padding: 14px 38px;
+      border-radius: 9px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px #2563eb21;
+      text-decoration: none;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+      font-family: 'Manrope', Arial, sans-serif;
+      letter-spacing: 0.7px;
+    }
+    .hero-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px) scale(1.04);
+    }
+
+    .image-row {
+      max-width: 1100px;
+      margin: 64px auto 0 auto;
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+      padding: 0 1.5rem;
+      flex-wrap: wrap;
+      color: var(--text);
+    }
+    .image-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 38px #2563eb1a;
+      flex: 1 1 340px;
+      max-width: 440px;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 28px;
+      font-family: 'Quicksand', Arial, sans-serif;
+      transition: transform 0.14s, box-shadow 0.14s;
+      color: var(--text);
+    }
+    .image-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 12px 48px #2563eb22;
+    }
+    .image-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-top-left-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
+      margin-bottom: 0;
+      display: block;
+    }
+    .image-card .caption {
+      padding: 24px 22px 20px 22px;
+      color: var(--text);
+      font-size: 1.12rem;
+      text-align: center;
+      font-family: 'Quicksand', Arial, sans-serif;
+    }
+
+    .staat-info {
+      max-width: 700px;
+      margin: 70px auto 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 24px #2563eb12;
+      padding: 38px 32px;
+      color: var(--text);
+      font-size: 1.16rem;
+      line-height: 1.95;
+      font-family: 'Quicksand', Arial, sans-serif;
+      transition: box-shadow var(--transition-fast);
+    }
+    .staat-info:hover {
+      box-shadow: 0 12px 40px #2563eb21;
+    }
+    .staat-info h2 {
+      color: var(--accent);
+      font-size: 1.45rem;
+      margin-bottom: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      font-family: 'Manrope', Arial, sans-serif;
+    }
+    .staat-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .staat-info li {
+      margin-bottom: 7px;
+      color: var(--text);
+    }
+    .staat-info .label {
+      color: var(--accent);
+      font-weight: 700;
+      margin-right: 8px;
+      font-family: 'Quicksand', Arial, sans-serif;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 52px auto;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 28px #2563eb1a;
+      padding: 44px 36px;
+      color: var(--text);
+      font-size: 1.18rem;
+      display: none;
+      animation: fadeIn 0.44s;
+      font-family: 'Quicksand', Arial, sans-serif;
+    }
+    .page.active {
+      display: block;
+    }
+    .page h2 {
+      color: var(--accent);
+      margin-top: 0;
+      font-size: 2.1rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.8px;
+      font-family: 'Manrope', Arial, sans-serif;
+      font-weight: 800;
+    }
+    .betrieb-cards {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 38px;
+      color: var(--text);
+    }
+    .betrieb-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      box-shadow: 0 2px 16px #2563eb1a;
+      padding: 28px 24px 24px 24px;
+      max-width: 340px;
+      min-width: 220px;
+      flex: 1 1 260px;
+      margin-bottom: 18px;
+      text-align: center;
+      font-family: 'Quicksand', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: transform 0.14s, box-shadow 0.14s;
+      color: var(--text);
+    }
+    .betrieb-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 38px #2563eb26;
+    }
+    .betrieb-card-placeholder-img {
+      width: 110px;
+      height: 110px;
+      background: var(--betrieb-placeholder);
+      border-radius: 50%;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--betrieb-placeholder-icon);
+      font-size: 2.8rem;
+      font-weight: 700;
+      font-family: 'Manrope', Arial, sans-serif;
+      border: 2.5px dashed #cbd5e1;
+      user-select: none;
+      margin-top: -48px;
+      box-shadow: 0 2px 12px #2563eb16;
+      object-fit: cover;
+    }
+    .betrieb-card h3 {
+      color: var(--accent);
+      margin: 18px 0 8px 0;
+      font-size: 1.28rem;
+      letter-spacing: 0.2px;
+      font-family: 'Manrope', Arial, sans-serif;
+      font-weight: 700;
+    }
+    .betrieb-card p {
+      color: var(--text);
+      font-size: 1.07rem;
+      margin: 0;
+      font-family: 'Quicksand', Arial, sans-serif;
+    }
+    .betrieb-card .img-label {
+      color: #b5a37c;
+      font-size: 0.97rem;
+      margin-top: 4px;
+      margin-bottom: 8px;
+      font-family: 'Quicksand', Arial, sans-serif;
+      letter-spacing: 0.1px;
+    }
+
+    .betrieb-card-placeholder-img svg {
+      width: 48px;
+      height: 48px;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 1100px) {
+      .image-row, .betrieb-cards {
+        flex-direction: column;
+        gap: 1.3rem;
+      }
+      .image-card, .betrieb-card {
+        max-width: 96vw;
+      }
+      .page, .staat-info {
+        padding: 18px 8px;
+      }
+      nav {
+        flex-direction: column;
+        height: auto;
+        gap: 0.6rem;
+      }
+      .nav-link, .nav-dropdown-btn {
+        height: 44px;
+        padding: 0 10px;
+      }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: 1.25rem;}
+      .hero-image { height: 120px;}
+      .page h2 { font-size: 1.2rem;}
+      .betrieb-card-placeholder-img {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+      }
+      nav { gap: 1.2rem; }
+      .hero { margin-top: 24px;}
+      header { font-size: 1.3rem; padding: 20px 0 7px 0;}
+    }
+  </style>
+</head>
+<body>
+  <header onclick="showPage('')">
+    Karlopolis
+  </header>
+  <nav>
+    <a href="#" class="nav-link" onclick="showPage('');return false;">Start</a>
+    <div class="nav-dropdown" id="agency-dropdown">
+      <button class="nav-dropdown-btn" onclick="toggleDropdown('agency-dropdown')">BB Agency</button>
+      <div class="nav-dropdown-list">
+        <a href="#" onclick="showPage('agentur');return false;">Agentur</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" id="betriebe-dropdown">
+      <button class="nav-dropdown-btn" onclick="toggleDropdown('betriebe-dropdown')">Betriebe</button>
+      <div class="nav-dropdown-list">
+        <a href="#" onclick="showPage('betriebe');return false;">Betriebe</a>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <!-- Startseite -->
+    <section class="hero" id="home">
+      <img src="image1.jpg" alt="Staatliches Gebäude" class="hero-image">
+      <div class="hero-title">Willkommen in Karloplis</div>
+      <div class="hero-desc">
+        Dem Demokratischen Staat am Karlsgymnasium<br>
+        Entdecke unsere großartigen Betriebe und vieles mehr
+      </div>
+      <a class="hero-btn" href="#staat">Mehr erfahren</a>
+    </section>
+
+    <section class="image-row" id="imagerow">
+      <div class="image-card">
+        <img src="image2.jpg" alt="Innenansicht Treppenhaus">
+        <div class="caption">
+          Repräsentatives Treppenhaus – verbindet Tradition und Moderne im Staatsgebäude.
+        </div>
+      </div>
+      <div class="image-card">
+        <img src="image3.jpg" alt="Foyer im Staatsgebäude">
+        <div class="caption">
+          Das großzügige Foyer als Ort der Begegnung und Verwaltung.
+        </div>
+      </div>
+    </section>
+
+    <section class="staat-info" id="staat">
+      <h2>Informationen zum Staat</h2>
+      <ul>
+        <li><span class="label">Name:</span> Beispielstaat BB</li>
+        <li><span class="label">Bürger:</span> 500</li>
+        <li><span class="label">Regierungsform:</span> Demokratie</li>
+        <li><span class="label">Landessprache:</span> Deutsch</li>
+        <li><span class="label">Heutige Öffnungszeit:</span> 8-13 Uhr</li>
+      </ul>
+    </section>
+
+    <!-- Unterseite: Betriebe -->
+    <section class="page" id="betriebe-page">
+      <h2>Unsere Betriebe</h2>
+      <div class="betrieb-cards">
+        <div class="betrieb-card">
+          <img class="betrieb-card-placeholder-img" src="123.jpg" alt="Karls-Gymnasium">
+          <div class="img-label">Karls-Gymnasium</div>
+          <h3>Karls-Gymnasium</h3>
+          <p>Traditionsreiches Gymnasium mit exzellentem Bildungsangebot und moderner Ausstattung.</p>
+        </div>
+        <div class="betrieb-card">
+          <div class="betrieb-card-placeholder-img">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h2.086a1 1 0 0 0 .707-.293l.914-.914A2 2 0 0 1 12.828 3h2.343a2 2 0 0 1 1.414.586l.914.914a1 1 0 0 0 .707.293H17.5A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.3"/></svg>
+          </div>
+          <div class="img-label">src="karlsgymnasium.jpg"</div>
+          <h3>Autohaus Schnell</h3>
+          <p>Ihr zuverlässiger Partner für Neu- und Gebrauchtwagen, Werkstattservice und Mobilitätslösungen. Modernste Technik trifft auf persönliche Beratung.</p>
+        </div>
+        <div class="betrieb-card">
+          <div class="betrieb-card-placeholder-img">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h2.086a1 1 0 0 0 .707-.293l.914-.914A2 2 0 0 1 12.828 3h2.343a2 2 0 0 1 1.414.586l.914.914a1 1 0 0 0 .707.293H17.5A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.3"/></svg>
+          </div>
+          <div class="img-label">Platzhalter – Bild einfügen</div>
+          <h3>Blumenstudio Flora</h3>
+          <p>Kreative Floristik für jeden Anlass – ob Hochzeit, Event oder einfach nur ein schöner Strauß für Zuhause.</p>
+        </div>
+        <div class="betrieb-card">
+          <div class="betrieb-card-placeholder-img">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h2.086a1 1 0 0 0 .707-.293l.914-.914A2 2 0 0 1 12.828 3h2.343a2 2 0 0 1 1.414.586l.914.914a1 1 0 0 0 .707.293H17.5A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.3"/></svg>
+          </div>
+          <div class="img-label">Platzhalter – Bild einfügen</div>
+          <h3>Fitnesszentrum Aktiv</h3>
+          <p>Modern ausgestattetes Fitnessstudio mit vielfältigen Kursangeboten und individueller Betreuung durch erfahrene Trainer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Unterseite: Agentur -->
+    <section class="page" id="agentur-page">
+      <h2>BB Agency – Kreativagentur</h2>
+      <p>
+        Die BB Agency ist eine moderne Full-Service-Agentur, die sich auf innovative digitale und kreative Lösungen spezialisiert hat.
+      </p>
+      <ul>
+        <li>🌟 <b>Webdesign & Entwicklung:</b> Individuelle, responsive Websites für Unternehmen und Privatkunden.</li>
+        <li>✨ <b>Branding & Grafikdesign:</b> Entwicklung von Logos, Corporate Design und Werbematerialien.</li>
+        <li>💡 <b>Marketing & Social Media:</b> Strategien für Reichweite, Engagement und Markenaufbau.</li>
+        <li>🔧 <b>Beratung:</b> Unterstützung bei Digitalisierung und Optimierung von Geschäftsprozessen.</li>
+      </ul>
+      <p style="margin-top:22px;">Unser junges, kreatives Team begleitet Sie von der Idee bis zur Umsetzung – persönlich, flexibel und kompetent.</p>
+    </section>
+  </main>
+  <script>
+    // Apple-like Dropdown Funktion
+    function closeAllDropdowns() {
+      document.querySelectorAll('.nav-dropdown').forEach(function(drop) {
+        drop.classList.remove('open');
+      });
+    }
+    function toggleDropdown(id) {
+      const drop = document.getElementById(id);
+      const isOpen = drop.classList.contains('open');
+      closeAllDropdowns();
+      if (!isOpen) drop.classList.add('open');
+    }
+    document.addEventListener('click', function(e) {
+      // Schließe Dropdowns nur wenn außerhalb geklickt wurde
+      if (!e.target.closest('.nav-dropdown')) {
+        closeAllDropdowns();
+      }
+    });
+
+    // Seitenumschaltung
+    function showPage(page) {
+      document.getElementById('home').style.display = page ? 'none' : '';
+      document.getElementById('imagerow').style.display = page ? 'none' : '';
+      document.getElementById('staat').style.display = page ? 'none' : '';
+      document.getElementById('betriebe-page').classList.remove('active');
+      document.getElementById('agentur-page').classList.remove('active');
+      closeAllDropdowns();
+      if (page === 'betriebe') {
+        document.getElementById('betriebe-page').classList.add('active');
+      } else if (page === 'agentur') {
+        document.getElementById('agentur-page').classList.add('active');
+      } else {
+        document.getElementById('home').style.display = '';
+        document.getElementById('imagerow').style.display = '';
+        document.getElementById('staat').style.display = '';
+      }
+      window.scrollTo({top: 0, behavior: "smooth"});
+    }
+    // Startseite beim Laden
+    showPage();
+    // Klick auf Header = Startseite
+    document.querySelector('header').addEventListener('click', function() {
+      showPage('');
+    });
+  </script>
+</body>
+</html>
